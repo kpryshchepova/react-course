@@ -1,7 +1,7 @@
 @mixin box-shadow($shadows...)
-  -moz-box-shadow: $shadows
-  -webkit-box-shadow: $shadows
-  box-shadow: $shadows
+    -moz-box-shadow: $shadows
+    -webkit-box-shadow: $shadows
+    box-shadow: $shadows
 
 %card
     margin: 10px
@@ -9,7 +9,7 @@
 .card
     @extend %card
 
-    &__header 
+    &__header
         font-weight: bolder
         font-size: 18px
 
@@ -22,4 +22,3 @@
     &__checked
         @extend %card
         @include box-shadow(0px 4px 5px #666, 2px 6px 10px #999)
-        

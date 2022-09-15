@@ -1,8 +1,8 @@
-import React from 'react';
-import AppHeader from './components/AppHeader/AppHeader';
-import AppContent from './components/AppContent/AppContent';
+import React from "react";
+import AppHeader from "./components/AppHeader/AppHeader";
+import AppContent from "./components/AppContent/AppContent";
 
-import './App.sass';
+import "./App.sass";
 
 function App() {
   return (

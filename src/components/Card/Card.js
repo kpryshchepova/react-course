@@ -1,28 +1,37 @@
-import { Tile } from 'carbon-components-react';
-import React, { useState } from 'react';
-
+import { Tile } from "carbon-components-react";
+import React, { useState } from "react";
 
 const Card = () => {
-    const uncheckedCardStyle = 'bx--tile--clickable card';
-    const checkedCardStyle = 'bx--tile--clickable card__checked';
-    
-    const [cardStyleValue, setCardStyleValue] = useState(uncheckedCardStyle);
+  const uncheckedCardStyle = "bx--tile--clickable card";
+  const checkedCardStyle = "bx--tile--clickable card__checked";
 
-    function checkBoxClickHandler(event) {
-        setCardStyleValue(event.target.checked ? checkedCardStyle : uncheckedCardStyle);
-    }
+  const [isChecked, setIsChecked] = useState(false);
 
-    return (
-    <Tile className={cardStyleValue}>
-        <div className='card__header'>
-            Header
-            <input className='card__checkbox' type="checkbox" onChange={checkBoxClickHandler}/>
-        </div>
-        <hr/>
-        <div className='card__content'>
-            Content
-        </div>
+  function checkBoxClickHandler() {
+    setIsChecked(!isChecked);
+  }
+
+  return (
+    <Tile
+      className={
+        isChecked
+          ? checkedCardStyle
+          : uncheckedCardStyle
+      }
+    >
+      <div className="card__header">
+        Header
+        <input
+          className="card__checkbox"
+          type="checkbox"
+          checked={isChecked}
+          onChange={checkBoxClickHandler}
+        />
+      </div>
+      <hr />
+      <div className="card__content">Content</div>
     </Tile>
-)};
+  );
+};
 
 export default Card;
