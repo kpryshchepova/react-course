@@ -1,6 +1,6 @@
 import React from "react";
 import { Content } from "carbon-components-react";
-import Card from "../Card/Card";
+import Card from "../Card";
 
 const AppContent = () => (
   <Content>

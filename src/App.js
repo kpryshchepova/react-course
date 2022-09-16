@@ -1,6 +1,6 @@
 import React from "react";
-import AppHeader from "./components/AppHeader/AppHeader";
-import AppContent from "./components/AppContent/AppContent";
+import AppHeader from "./components/AppHeader";
+import AppContent from "./components/AppContent";
 
 import "./App.sass";
 

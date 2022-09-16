@@ -2,9 +2,6 @@ import { Tile } from "carbon-components-react";
 import React, { useState } from "react";
 
 const Card = () => {
-  const uncheckedCardStyle = "bx--tile--clickable card";
-  const checkedCardStyle = "bx--tile--clickable card__checked";
-
   const [isChecked, setIsChecked] = useState(false);
 
   function checkBoxClickHandler() {
@@ -14,9 +11,7 @@ const Card = () => {
   return (
     <Tile
       className={
-        isChecked
-          ? checkedCardStyle
-          : uncheckedCardStyle
+        "bx--tile--clickable " + (isChecked ? "card__checked" : "card")
       }
     >
       <div className="card__header">
