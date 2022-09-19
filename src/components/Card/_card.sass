@@ -1,3 +1,7 @@
+@import "./CardContent/_card-content"
+@import "./CardControls/_card-controls"
+@import "./CardHeader/_card-header"
+
 @mixin box-shadow($shadows...)
     -moz-box-shadow: $shadows
     -webkit-box-shadow: $shadows
@@ -8,16 +12,6 @@
 
 .card
     @extend %card
-
-    &__header
-        font-weight: bolder
-        font-size: 18px
-
-    &__content
-        font-size: 14px
-
-    &__checkbox
-        float: right
 
     &__checked
         @extend %card
