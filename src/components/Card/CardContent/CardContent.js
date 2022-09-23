@@ -2,20 +2,20 @@ import { TextArea } from "carbon-components-react";
 import React from "react";
 
 const CardContent = (props) => {
-  function changeContentHandler(event) {
-    props.changeContentHandler({ contentValue: event.target.value });
+  function changeHandler(event) {
+    props.changeHandler({ content: event.target.value });
   }
 
-  return !props.state.isEditMode ? (
-    <div className="card-content">{props.state.contentValue}</div>
+  return !props.cardState.isEditMode ? (
+    <div className="card-content">{props.cardState.content}</div>
   ) : (
     <div className="card-content">
       <TextArea
         labelText=""
         helperText="Enter content text"
         rows={2}
-        value={props.state.contentValue}
-        onChange={changeContentHandler}
+        value={props.cardState.content}
+        onChange={changeHandler}
       />
     </div>
   );

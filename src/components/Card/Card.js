@@ -4,78 +4,64 @@ import CardContent from "./CardContent/CardContent";
 import CardControls from "./CardControls/CardControls";
 import CardHeader from "./CardHeader/CardHeader";
 
-let currentValues = {
-  header: "Header",
-  content: "Content",
-};
-
-const Card = () => {
-  const [state, setState] = useState({
+const Card = (props) => {
+  const [cardState, setCardState] = useState({
     isChecked: false,
     isEditMode: false,
-    headerValue: currentValues.header,
-    contentValue: currentValues.content,
+    ...props.contentState,
   });
 
-  function editModeHandler(data) {
-    setState((prevState) => {
-      return { ...prevState, ...data };
-    });
-  }
+  const currentValues = props.contentState;
 
-  function editButtonHandler(data) {
-    setState((prevState) => {
+  function editHandler(data) {
+    setCardState((prevState) => {
       return { ...prevState, ...data };
     });
   }
 
   function saveButtonHandler(data) {
-    setState((prevState) => {
-      currentValues.content = prevState.contentValue;
-      currentValues.header = prevState.headerValue;
+    setCardState((prevState) => {
+      currentValues.content = prevState.content;
+      currentValues.header = prevState.header;
       return { ...prevState, ...data };
     });
   }
 
   function cancelButtonHandler(data) {
-    setState((prevState) => {
+    setCardState((prevState) => {
       return {
         ...prevState,
         ...data,
-        headerValue: currentValues.header,
-        contentValue: currentValues.content,
+        header: currentValues.header,
+        content: currentValues.content,
       };
     });
   }
 
-  function changeContentHandler(data) {
-    setState((prevState) => {
+  function changeHandler(data) {
+    setCardState((prevState) => {
       return { ...prevState, ...data };
     });
-  }
 
-  function changeHeaderHandler(data) {
-    setState((prevState) => {
-      return { ...prevState, ...data };
-    });
+    props.contentStateHandler(data);
   }
 
   return (
     <Tile
       className={
-        "bx--tile--clickable " + (state.isChecked ? "card__checked" : "card")
+        "bx--tile--clickable " +
+        (cardState.isChecked ? "card__checked" : "card")
       }
     >
       <CardControls
-        state={state}
-        editModeHandler={editModeHandler}
-        editButtonHandler={editButtonHandler}
+        cardState={cardState}
+        editHandler={editHandler}
         saveButtonHandler={saveButtonHandler}
         cancelButtonHandler={cancelButtonHandler}
       />
-      <CardHeader state={state} changeHeaderHandler={changeHeaderHandler} />
+      <CardHeader cardState={cardState} changeHandler={changeHandler} />
       <hr />
-      <CardContent state={state} changeContentHandler={changeContentHandler} />
+      <CardContent cardState={cardState} changeHandler={changeHandler} />
     </Tile>
   );
 };

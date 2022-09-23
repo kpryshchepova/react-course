@@ -7,11 +7,11 @@ import React from "react";
 
 const CardControls = (props) => {
   function checkBoxClickHandler() {
-    props.editModeHandler({ isChecked: !props.state.isChecked });
+    props.editHandler({ isChecked: !props.cardState.isChecked });
   }
 
   function editButtonClickHandler() {
-    props.editButtonHandler({ isEditMode: true, isChecked: false });
+    props.editHandler({ isEditMode: true, isChecked: false });
   }
 
   function saveButtonClickHandler() {
@@ -22,7 +22,7 @@ const CardControls = (props) => {
     props.cancelButtonHandler({ isEditMode: false });
   }
 
-  const buttons = !props.state.isEditMode ? (
+  const buttons = !props.cardState.isEditMode ? (
     <div className="card-controls__buttons">
       <Edit20
         aria-label="Edit"
@@ -45,12 +45,12 @@ const CardControls = (props) => {
     </div>
   );
 
-  return !props.state.isEditMode ? (
+  return !props.cardState.isEditMode ? (
     <div className="card-controls">
       {buttons}
       <input
         type="checkbox"
-        checked={props.state.isChecked}
+        checked={props.cardState.isChecked}
         onChange={checkBoxClickHandler}
       />
     </div>
