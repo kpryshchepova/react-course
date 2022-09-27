@@ -8,32 +8,27 @@ const Card = (props) => {
   const [cardState, setCardState] = useState({
     isChecked: false,
     isEditMode: false,
-    ...props.contentState,
+    ...props.contentCardState,
   });
 
-  const currentValues = props.contentState;
-
-  function editHandler(data) {
-    setCardState((prevState) => {
-      return { ...prevState, ...data };
-    });
-  }
+  let currentValues = { ...props.contentCardState };
 
   function saveButtonHandler(data) {
     setCardState((prevState) => {
-      currentValues.content = prevState.content;
-      currentValues.header = prevState.header;
+      currentValues = { ...prevState };
+
       return { ...prevState, ...data };
     });
+
+    props.appCardStateHandler({ ...data, ...cardState });
   }
 
   function cancelButtonHandler(data) {
     setCardState((prevState) => {
       return {
         ...prevState,
+        ...currentValues,
         ...data,
-        header: currentValues.header,
-        content: currentValues.content,
       };
     });
   }
@@ -42,8 +37,6 @@ const Card = (props) => {
     setCardState((prevState) => {
       return { ...prevState, ...data };
     });
-
-    props.contentStateHandler(data);
   }
 
   return (
@@ -55,7 +48,7 @@ const Card = (props) => {
     >
       <CardControls
         cardState={cardState}
-        editHandler={editHandler}
+        changeHandler={changeHandler}
         saveButtonHandler={saveButtonHandler}
         cancelButtonHandler={cancelButtonHandler}
       />

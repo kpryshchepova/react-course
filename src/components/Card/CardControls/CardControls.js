@@ -7,11 +7,11 @@ import React from "react";
 
 const CardControls = (props) => {
   function checkBoxClickHandler() {
-    props.editHandler({ isChecked: !props.cardState.isChecked });
+    props.changeHandler({ isChecked: !props.cardState.isChecked });
   }
 
   function editButtonClickHandler() {
-    props.editHandler({ isEditMode: true, isChecked: false });
+    props.changeHandler({ isEditMode: true, isChecked: false });
   }
 
   function saveButtonClickHandler() {

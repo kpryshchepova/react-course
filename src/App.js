@@ -4,16 +4,14 @@ import AppContent from "./components/AppContent";
 
 import "./App.sass";
 
-let currentValues = {
-  header: "Header",
-  content: "Content",
-};
-
 function App() {
-  const [appState, setAppState] = useState(currentValues);
+  const [appCardState, setAppCardState] = useState({
+    header: "Header",
+    content: "Content",
+  });
 
-  function appStateHandler(data) {
-    setAppState((prevState) => {
+  function appCardStateHandler(data) {
+    setAppCardState((prevState) => {
       return { ...prevState, ...data };
     });
   }
@@ -21,7 +19,10 @@ function App() {
   return (
     <>
       <AppHeader />
-      <AppContent appStateHandler={appStateHandler} appState={appState} />
+      <AppContent
+        appCardStateHandler={appCardStateHandler}
+        appCardState={appCardState}
+      />
     </>
   );
 }
