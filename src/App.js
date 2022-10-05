@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import AppHeader from "./components/AppHeader";
 import AppContent from "./components/AppContent";
 
 import "./App.sass";
 
 function App() {
+  const [appCardState, setAppCardState] = useState({
+    header: "Header",
+    content: "Content",
+  });
+
+  function appCardStateHandler(data) {
+    setAppCardState((prevState) => ({ ...prevState, ...data }));
+  }
+
   return (
     <>
       <AppHeader />
-      <AppContent />
+      <AppContent
+        appCardStateHandler={appCardStateHandler}
+        appCardState={appCardState}
+      />
     </>
   );
 }

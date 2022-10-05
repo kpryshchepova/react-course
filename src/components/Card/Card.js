@@ -1,30 +1,60 @@
 import { Tile } from "carbon-components-react";
 import React, { useState } from "react";
+import CardContent from "./CardContent/CardContent";
+import CardControls from "./CardControls/CardControls";
+import CardHeader from "./CardHeader/CardHeader";
 
-const Card = () => {
-  const [isChecked, setIsChecked] = useState(false);
+const Card = (props) => {
+  const [cardState, setCardState] = useState({
+    isChecked: false,
+    isEditMode: false,
+    ...props.contentCardState,
+  });
 
-  function checkBoxClickHandler() {
-    setIsChecked(!isChecked);
+  let currentValues = { ...props.contentCardState };
+
+  function saveButtonHandler(data) {
+    setCardState((prevState) => {
+      currentValues = { ...prevState };
+
+      return { ...prevState, ...data };
+    });
+
+    props.appCardStateHandler({ ...data, ...cardState });
+  }
+
+  function cancelButtonHandler(data) {
+    setCardState((prevState) => {
+      return {
+        ...prevState,
+        ...currentValues,
+        ...data,
+      };
+    });
+  }
+
+  function changeHandler(data) {
+    setCardState((prevState) => {
+      return { ...prevState, ...data };
+    });
   }
 
   return (
     <Tile
       className={
-        "bx--tile--clickable " + (isChecked ? "card__checked" : "card")
+        "bx--tile--clickable " +
+        (cardState.isChecked ? "card__checked" : "card")
       }
     >
-      <div className="card__header">
-        Header
-        <input
-          className="card__checkbox"
-          type="checkbox"
-          checked={isChecked}
-          onChange={checkBoxClickHandler}
-        />
-      </div>
+      <CardControls
+        cardState={cardState}
+        changeHandler={changeHandler}
+        saveButtonHandler={saveButtonHandler}
+        cancelButtonHandler={cancelButtonHandler}
+      />
+      <CardHeader cardState={cardState} changeHandler={changeHandler} />
       <hr />
-      <div className="card__content">Content</div>
+      <CardContent cardState={cardState} changeHandler={changeHandler} />
     </Tile>
   );
 };
