@@ -11,9 +11,7 @@ function App() {
   });
 
   function appCardStateHandler(data) {
-    setAppCardState((prevState) => {
-      return { ...prevState, ...data };
-    });
+    setAppCardState((prevState) => ({ ...prevState, ...data }));
   }
 
   return (
