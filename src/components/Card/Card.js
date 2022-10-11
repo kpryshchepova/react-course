@@ -11,6 +11,10 @@ const Card = (props) => {
     ...props.contentCardState,
   });
 
+  cardState.isEditMode &&
+    props.isReadOnlyMode &&
+    cancelButtonHandler({ isEditMode: false });
+
   let currentValues = { ...props.contentCardState };
 
   function saveButtonHandler(data) {
@@ -51,10 +55,19 @@ const Card = (props) => {
         changeHandler={changeHandler}
         saveButtonHandler={saveButtonHandler}
         cancelButtonHandler={cancelButtonHandler}
+        isReadOnlyMode={props.isReadOnlyMode}
       />
-      <CardHeader cardState={cardState} changeHandler={changeHandler} />
+      <CardHeader
+        cardState={cardState}
+        isReadOnlyMode={props.isReadOnlyMode}
+        changeHandler={changeHandler}
+      />
       <hr />
-      <CardContent cardState={cardState} changeHandler={changeHandler} />
+      <CardContent
+        cardState={cardState}
+        isReadOnlyMode={props.isReadOnlyMode}
+        changeHandler={changeHandler}
+      />
     </Tile>
   );
 };

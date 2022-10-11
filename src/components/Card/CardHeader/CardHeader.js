@@ -6,7 +6,7 @@ const CardHeader = (props) => {
     props.changeHandler({ header: event.target.value });
   }
 
-  return !props.cardState.isEditMode ? (
+  return !props.cardState.isEditMode || props.isReadOnlyMode ? (
     <div className="card-header">{props.cardState.header}</div>
   ) : (
     <div className="card-header">
