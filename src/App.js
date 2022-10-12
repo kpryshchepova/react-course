@@ -73,22 +73,11 @@ function App() {
     });
   }
 
-  function setAllCardsToReadMode() {
-    setAppCardState((prevState) => {
-      const cards = prevState.cards.slice();
-      cards.forEach((item) => {
-        item.isEditMode = false;
-      });
-      return { ...prevState, cards: cards };
-    });
-  }
-
   return (
     <>
       <AppHeader />
       <AppContent
         appCardStateHandler={appCardStateHandler}
-        setAllCardsToReadMode={setAllCardsToReadMode}
         appCardState={appCardState}
       />
     </>

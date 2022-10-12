@@ -6,7 +6,6 @@ const AppContent = (props) => {
   const [readOnlyModeState, setReadOnlyModeState] = useState(false);
 
   function readOnlyModeClickHandler() {
-    readOnlyModeState && props.setAllCardsToReadMode();
     setReadOnlyModeState(!readOnlyModeState);
   }
 
