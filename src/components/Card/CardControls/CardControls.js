@@ -22,7 +22,9 @@ const CardControls = (props) => {
     props.cancelButtonHandler({ isEditMode: false });
   }
 
-  const buttons = !props.cardState.isEditMode ? (
+  const buttons = props.isReadOnlyMode ? (
+    <div className="card-controls__buttons-empty"></div>
+  ) : !props.cardState.isEditMode ? (
     <div className="card-controls__buttons">
       <Edit20
         aria-label="Edit"
@@ -48,6 +50,14 @@ const CardControls = (props) => {
   return !props.cardState.isEditMode ? (
     <div className="card-controls">
       {buttons}
+      <input
+        type="checkbox"
+        checked={props.cardState.isChecked}
+        onChange={checkBoxClickHandler}
+      />
+    </div>
+  ) : props.isReadOnlyMode ? (
+    <div className="card-controls">
       <input
         type="checkbox"
         checked={props.cardState.isChecked}

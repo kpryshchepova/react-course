@@ -6,7 +6,7 @@ const CardContent = (props) => {
     props.changeHandler({ content: event.target.value });
   }
 
-  return !props.cardState.isEditMode ? (
+  return !props.cardState.isEditMode || props.isReadOnlyMode ? (
     <div className="card-content">{props.cardState.content}</div>
   ) : (
     <div className="card-content">
