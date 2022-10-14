@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { Content } from "carbon-components-react";
 import Card from "../Card";
+import styled from "styled-components";
+
+const ReadOnlyCheckbox = styled.input.attrs({type: "checkbox"})`
+  accent-color: grey;
+  width: 20px;
+  height: 20px;
+`;
 
 const AppContent = (props) => {
   const [readOnlyModeState, setReadOnlyModeState] = useState(false);
@@ -14,7 +21,7 @@ const AppContent = (props) => {
       <div className="bx--grid">
         <div className="bx--row app-content__row">
           <label className="app-content__label">
-            <input
+            <ReadOnlyCheckbox
               className="app-content__readonly-checkbox"
               type="checkbox"
               checked={readOnlyModeState}
