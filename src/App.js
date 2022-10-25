@@ -61,6 +61,14 @@ function App() {
     ],
   });
 
+  function deleteCardsHandler() {
+    setAppCardState((prevState) => {
+      const newCards = prevState.cards.filter((card) => !card.isChecked);
+
+      return { ...prevState, cards: newCards };
+    });
+  }
+
   function appCardStateHandler(data) {
     setAppCardState((prevState) => {
       const cards = prevState.cards.map((item) => {
@@ -79,6 +87,7 @@ function App() {
       <AppContent
         appCardStateHandler={appCardStateHandler}
         appCardState={appCardState}
+        deleteCardsHandler={deleteCardsHandler}
       />
     </>
   );

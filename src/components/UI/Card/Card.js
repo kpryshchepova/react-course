@@ -41,6 +41,8 @@ const Card = (props) => {
     setCardState((prevState) => {
       return { ...prevState, ...data };
     });
+
+    props.appCardStateHandler({ ...cardState, ...data });
   }
 
   return (
