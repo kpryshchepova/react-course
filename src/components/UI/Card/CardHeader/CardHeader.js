@@ -3,7 +3,7 @@ import React from "react";
 
 const CardHeader = (props) => {
   function changeHandler(event) {
-    props.changeHandler({ header: event.target.value });
+    props.changeTextHandler({ header: event.target.value });
   }
 
   return !props.cardState.isEditMode || props.isReadOnlyMode ? (
