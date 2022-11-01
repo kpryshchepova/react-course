@@ -69,6 +69,14 @@ function App() {
     });
   }
 
+  function addNewCardHandler(card) {
+    setAppCardState((prevState) => {
+      const cards = prevState.cards.slice();
+      cards.push(card);
+      return { ...prevState, cards: cards };
+    });
+  }
+
   function appCardStateHandler(data) {
     setAppCardState((prevState) => {
       const cards = prevState.cards.map((item) => {
@@ -88,6 +96,7 @@ function App() {
         appCardStateHandler={appCardStateHandler}
         appCardState={appCardState}
         deleteCardsHandler={deleteCardsHandler}
+        addNewCardHandler={addNewCardHandler}
       />
     </>
   );

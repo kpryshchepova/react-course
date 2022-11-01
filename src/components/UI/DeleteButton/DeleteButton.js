@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Button } from "carbon-components-react";
 import ModalWindow from "../ModalWindow/ModalWindow";
+import { TrashCan24 } from "@carbon/icons-react";
 
 const DeleteButton = (props) => {
   const [isOpenState, setIsOpenState] = useState(false);
@@ -27,6 +28,7 @@ const DeleteButton = (props) => {
         )}
       <div className="delete-button__button">
         <Button kind="secondary" onClick={updateModalState}>
+          <TrashCan24></TrashCan24>
           Delete Cards
         </Button>
       </div>

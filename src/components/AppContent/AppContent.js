@@ -22,6 +22,7 @@ const AppContent = (props) => {
             readOnlyModeState={readOnlyModeState}
             readOnlyModeClickHandler={readOnlyModeClickHandler}
             deleteCardsHandler={props.deleteCardsHandler}
+            addNewCardHandler={props.addNewCardHandler}
             isSomeCardChecked={isSomeCardChecked}
           ></ActionBar>
         </div>
