@@ -41,6 +41,14 @@ const Card = (props) => {
     setCardState((prevState) => {
       return { ...prevState, ...data };
     });
+
+    props.appCardStateHandler({ ...cardState, ...data });
+  }
+
+  function changeTextHandler(data) {
+    setCardState((prevState) => {
+      return { ...prevState, ...data };
+    });
   }
 
   return (
@@ -60,13 +68,13 @@ const Card = (props) => {
       <CardHeader
         cardState={cardState}
         isReadOnlyMode={props.isReadOnlyMode}
-        changeHandler={changeHandler}
+        changeTextHandler={changeTextHandler}
       />
       <hr />
       <CardContent
         cardState={cardState}
         isReadOnlyMode={props.isReadOnlyMode}
-        changeHandler={changeHandler}
+        changeTextHandler={changeTextHandler}
       />
     </Tile>
   );

@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { Content } from "carbon-components-react";
-import Card from "../Card";
-import styled from "styled-components";
-
-const ReadOnlyCheckbox = styled.input.attrs({type: "checkbox"})`
-  accent-color: grey;
-  width: 20px;
-  height: 20px;
-`;
+import CardList from "../CardList";
+import ActionBar from "../ActionBar";
 
 const AppContent = (props) => {
   const [readOnlyModeState, setReadOnlyModeState] = useState(false);
+
+  const isSomeCardChecked = props.appCardState.cards.some(
+    (card) => card.isChecked
+  );
 
   function readOnlyModeClickHandler() {
     setReadOnlyModeState(!readOnlyModeState);
@@ -20,29 +18,19 @@ const AppContent = (props) => {
     <Content>
       <div className="bx--grid">
         <div className="bx--row app-content__row">
-          <label className="app-content__label">
-            <ReadOnlyCheckbox
-              className="app-content__readonly-checkbox"
-              type="checkbox"
-              checked={readOnlyModeState}
-              onChange={readOnlyModeClickHandler}
-            />
-            ReadOnly Mode
-          </label>
+          <ActionBar
+            readOnlyModeState={readOnlyModeState}
+            readOnlyModeClickHandler={readOnlyModeClickHandler}
+            deleteCardsHandler={props.deleteCardsHandler}
+            isSomeCardChecked={isSomeCardChecked}
+          ></ActionBar>
         </div>
         <div className="bx--row">
-          {props.appCardState.cards.map((item) => (
-            <div
-              key={item.id}
-              className="bx--col-sm-6 bx--col-md-4 bx--col-lg-3"
-            >
-              <Card
-                appCardStateHandler={props.appCardStateHandler}
-                contentCardState={item}
-                isReadOnlyMode={readOnlyModeState}
-              />
-            </div>
-          ))}
+          <CardList
+            cards={props.appCardState.cards}
+            isReadOnlyMode={readOnlyModeState}
+            appCardStateHandler={props.appCardStateHandler}
+          ></CardList>
         </div>
       </div>
     </Content>
