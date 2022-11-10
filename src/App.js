@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import AppHeader from "./components/AppHeader";
 import AppContent from "./components/AppContent";
 import { useUID } from "react-uid";
+import ReactDOM from "react-dom";
 
 import "./App.sass";
+import ModalWindow from "./components/UI/ModalWindow/ModalWindow";
 
 function App() {
   const [appCardState, setAppCardState] = useState({
@@ -61,6 +63,36 @@ function App() {
     ],
   });
 
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    isAddNew: false,
+  });
+
+  const inputData = [
+    {
+      id: "header",
+      labelText: "Input Card Header",
+    },
+    {
+      id: "content",
+      labelText: "Input Card Content",
+    },
+  ];
+
+  const modalText = modalState.isAddNew
+    ? "Add New Card"
+    : "Do you want to delete cards?";
+  const primaryButtonText = modalState.isAddNew ? "Add" : "Delete";
+
+  function updateOpenModalState() {
+    setModalState((prevState) => {
+      return {
+        ...prevState,
+        isOpen: !prevState.isOpen,
+      };
+    });
+  }
+
   function deleteCardsHandler() {
     setAppCardState((prevState) => {
       const newCards = prevState.cards.filter((card) => !card.isChecked);
@@ -95,9 +127,25 @@ function App() {
       <AppContent
         appCardStateHandler={appCardStateHandler}
         appCardState={appCardState}
-        deleteCardsHandler={deleteCardsHandler}
+        // deleteCardsHandler={deleteCardsHandler}
         addNewCardHandler={addNewCardHandler}
+        updateModalState={setModalState}
       />
+      {modalState.isOpen &&
+        ReactDOM.createPortal(
+          <ModalWindow
+            inputData={modalState.isAddNew ? inputData : []}
+            text={modalText}
+            primaryButtonText={primaryButtonText}
+            secondaryButtonText="Cancel"
+            open={modalState.isOpen}
+            onRequestClose={updateOpenModalState}
+            onRequestSubmit={
+              modalState.isAddNew ? addNewCardHandler : deleteCardsHandler
+            }
+          ></ModalWindow>,
+          document.getElementById("modal")
+        )}
     </>
   );
 }

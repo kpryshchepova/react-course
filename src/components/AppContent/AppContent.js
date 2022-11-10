@@ -24,6 +24,7 @@ const AppContent = (props) => {
             deleteCardsHandler={props.deleteCardsHandler}
             addNewCardHandler={props.addNewCardHandler}
             isSomeCardChecked={isSomeCardChecked}
+            updateModalState={props.updateModalState}
           ></ActionBar>
         </div>
         <div className="bx--row">
