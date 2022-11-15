@@ -1,0 +1,23 @@
+{
+  "deleteForm": {
+    "modalText": "Do you want to delete cards?",
+    "inputData": [],
+    "primaryButtonText": "Delete",
+    "secondaryButtonText": "Cancel"
+  },
+  "addNewForm": {
+    "modalText": "Add New Card",
+    "inputData": [
+      {
+        "id": "header",
+        "labelText": "Input Card Header"
+      },
+      {
+        "id": "content",
+        "labelText": "Input Card Content"
+      }
+    ],
+    "primaryButtonText": "Add",
+    "secondaryButtonText": "Cancel"
+  }
+}

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import AppHeader from "./components/AppHeader";
 import AppContent from "./components/AppContent";
-import { useUID } from "react-uid";
 import ReactDOM from "react-dom";
+import modalConfig from "./utils/modal.config.json";
+import { useUID } from "react-uid";
 
 import "./App.sass";
 import ModalWindow from "./components/UI/ModalWindow/ModalWindow";
@@ -68,22 +69,6 @@ function App() {
     isAddNew: false,
   });
 
-  const inputData = [
-    {
-      id: "header",
-      labelText: "Input Card Header",
-    },
-    {
-      id: "content",
-      labelText: "Input Card Content",
-    },
-  ];
-
-  const modalText = modalState.isAddNew
-    ? "Add New Card"
-    : "Do you want to delete cards?";
-  const primaryButtonText = modalState.isAddNew ? "Add" : "Delete";
-
   function updateOpenModalState() {
     setModalState((prevState) => {
       return {
@@ -121,28 +106,35 @@ function App() {
     });
   }
 
+  function submitModal(data) {
+    if (modalState.isAddNew) {
+      addNewCardHandler({ ...data });
+    } else {
+      deleteCardsHandler();
+    }
+    updateOpenModalState();
+  }
+
+  const modalData = modalState.isAddNew
+    ? modalConfig.addNewForm
+    : modalConfig.deleteForm;
+
   return (
     <>
       <AppHeader />
       <AppContent
         appCardStateHandler={appCardStateHandler}
         appCardState={appCardState}
-        // deleteCardsHandler={deleteCardsHandler}
         addNewCardHandler={addNewCardHandler}
         updateModalState={setModalState}
       />
       {modalState.isOpen &&
         ReactDOM.createPortal(
           <ModalWindow
-            inputData={modalState.isAddNew ? inputData : []}
-            text={modalText}
-            primaryButtonText={primaryButtonText}
-            secondaryButtonText="Cancel"
+            modalData={modalData}
             open={modalState.isOpen}
             onRequestClose={updateOpenModalState}
-            onRequestSubmit={
-              modalState.isAddNew ? addNewCardHandler : deleteCardsHandler
-            }
+            onRequestSubmit={submitModal}
           ></ModalWindow>,
           document.getElementById("modal")
         )}

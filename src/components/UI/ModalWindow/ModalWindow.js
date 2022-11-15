@@ -10,18 +10,8 @@ const ModalWindow = (props) => {
 
   const generatedId = useUID();
 
-  function addNewCard() {
-    const newCard = {
-      id: generatedId,
-      ...cardValues,
-    };
-    props.onRequestSubmit(newCard);
-    props.onRequestClose();
-  }
-
-  function deleteCards() {
-    props.onRequestSubmit();
-    props.onRequestClose();
+  function sendInputData() {
+    props.onRequestSubmit({ id: generatedId, ...cardValues });
   }
 
   function onNewCardValueChange(event) {
@@ -38,16 +28,16 @@ const ModalWindow = (props) => {
   return (
     <>
       <Modal
-        primaryButtonText={props.primaryButtonText}
-        secondaryButtonText={props.secondaryButtonText}
+        primaryButtonText={props.modalData.primaryButtonText}
+        secondaryButtonText={props.modalData.secondaryButtonText}
         open={props.open}
         onRequestClose={props.onRequestClose}
-        onRequestSubmit={props.inputData.length ? addNewCard : deleteCards}
+        onRequestSubmit={sendInputData}
       >
-        <h4>{props.text}</h4>
-        {props.inputData.length ? (
+        <h4>{props.modalData.modalText}</h4>
+        {props.modalData.inputData.length ? (
           <>
-            {props.inputData.map((item, i) => {
+            {props.modalData.inputData.map((item, i) => {
               return (
                 <div key={i}>
                   <br />
