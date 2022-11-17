@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import AppHeader from "./components/AppHeader";
 import AppContent from "./components/AppContent";
+import ReactDOM from "react-dom";
+import modalConfig from "./utils/modal.config.json";
 import { useUID } from "react-uid";
 
 import "./App.sass";
+import ModalWindow from "./components/UI/ModalWindow/ModalWindow";
 
 function App() {
   const [appCardState, setAppCardState] = useState({
@@ -61,11 +64,33 @@ function App() {
     ],
   });
 
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    isAddNew: false,
+  });
+
+  function updateOpenModalState() {
+    setModalState((prevState) => {
+      return {
+        ...prevState,
+        isOpen: !prevState.isOpen,
+      };
+    });
+  }
+
   function deleteCardsHandler() {
     setAppCardState((prevState) => {
       const newCards = prevState.cards.filter((card) => !card.isChecked);
 
       return { ...prevState, cards: newCards };
+    });
+  }
+
+  function addNewCardHandler(card) {
+    setAppCardState((prevState) => {
+      const cards = prevState.cards.slice();
+      cards.push(card);
+      return { ...prevState, cards: cards };
     });
   }
 
@@ -81,14 +106,38 @@ function App() {
     });
   }
 
+  function submitModal(data) {
+    if (modalState.isAddNew) {
+      addNewCardHandler({ ...data });
+    } else {
+      deleteCardsHandler();
+    }
+    updateOpenModalState();
+  }
+
+  const modalData = modalState.isAddNew
+    ? modalConfig.addNewForm
+    : modalConfig.deleteForm;
+
   return (
     <>
       <AppHeader />
       <AppContent
         appCardStateHandler={appCardStateHandler}
         appCardState={appCardState}
-        deleteCardsHandler={deleteCardsHandler}
+        addNewCardHandler={addNewCardHandler}
+        updateModalState={setModalState}
       />
+      {modalState.isOpen &&
+        ReactDOM.createPortal(
+          <ModalWindow
+            modalData={modalData}
+            open={modalState.isOpen}
+            onRequestClose={updateOpenModalState}
+            onRequestSubmit={submitModal}
+          ></ModalWindow>,
+          document.getElementById("modal")
+        )}
     </>
   );
 }
