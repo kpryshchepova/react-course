@@ -1,5 +1,6 @@
 import { Tile } from "carbon-components-react";
 import React, { useState } from "react";
+import withLoadingDelay from "../WithLoadingDelay/WithLoadingDelay";
 import CardContent from "./CardContent/CardContent";
 import CardControls from "./CardControls/CardControls";
 import CardHeader from "./CardHeader/CardHeader";
@@ -80,4 +81,4 @@ const Card = (props) => {
   );
 };
 
-export default Card;
+export default withLoadingDelay(Card);
