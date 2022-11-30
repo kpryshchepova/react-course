@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Content } from "carbon-components-react";
 import CardList from "../CardList";
 import ActionBar from "../ActionBar";
+import CardContext from "../CardContext";
 
 const AppContent = (props) => {
   const [readOnlyModeState, setReadOnlyModeState] = useState(false);
 
-  const isSomeCardChecked = props.appCardState.cards.some(
-    (card) => card.isChecked
-  );
+  const cardContext = useContext(CardContext);
+
+  const isSomeCardChecked = cardContext.cards.some((card) => card.isChecked);
 
   function readOnlyModeClickHandler() {
     setReadOnlyModeState(!readOnlyModeState);
@@ -21,18 +22,12 @@ const AppContent = (props) => {
           <ActionBar
             readOnlyModeState={readOnlyModeState}
             readOnlyModeClickHandler={readOnlyModeClickHandler}
-            deleteCardsHandler={props.deleteCardsHandler}
-            addNewCardHandler={props.addNewCardHandler}
             isSomeCardChecked={isSomeCardChecked}
             updateModalState={props.updateModalState}
           ></ActionBar>
         </div>
         <div className="bx--row">
-          <CardList
-            cards={props.appCardState.cards}
-            isReadOnlyMode={readOnlyModeState}
-            appCardStateHandler={props.appCardStateHandler}
-          ></CardList>
+          <CardList isReadOnlyMode={readOnlyModeState}></CardList>
         </div>
       </div>
     </Content>

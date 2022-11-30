@@ -7,6 +7,7 @@ import { useUID } from "react-uid";
 
 import "./App.sass";
 import ModalWindow from "./components/UI/ModalWindow/ModalWindow";
+import CardContext from "./components/CardContext";
 
 function App() {
   const [appCardState, setAppCardState] = useState({
@@ -121,13 +122,17 @@ function App() {
 
   return (
     <>
-      <AppHeader />
-      <AppContent
-        appCardStateHandler={appCardStateHandler}
-        appCardState={appCardState}
-        addNewCardHandler={addNewCardHandler}
-        updateModalState={setModalState}
-      />
+      <CardContext.Provider
+        value={{
+          cards: appCardState.cards,
+          deleteCards: deleteCardsHandler,
+          addCard: addNewCardHandler,
+          changeCardsState: appCardStateHandler,
+        }}
+      >
+        <AppHeader />
+        <AppContent updateModalState={setModalState} />
+      </CardContext.Provider>
       {modalState.isOpen &&
         ReactDOM.createPortal(
           <ModalWindow
