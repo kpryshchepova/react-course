@@ -29,7 +29,7 @@ const Card = (props) => {
       return { ...prevState, ...data };
     });
 
-    cardContext.changeCardsState({ ...data, ...cardState });
+    cardContext.changeCardsData({ ...data, ...cardState });
   }
 
   function cancelButtonHandler(data) {
@@ -47,7 +47,7 @@ const Card = (props) => {
       return { ...prevState, ...data };
     });
 
-    cardContext.changeCardsState({ ...cardState, ...data });
+    cardContext.changeCardsData({ ...cardState, ...data });
   }
 
   function changeTextHandler(data) {
