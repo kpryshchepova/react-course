@@ -1,9 +1,11 @@
 import { Tile } from "carbon-components-react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import PropTypes from "prop-types";
 import withLoadingDelay from "../WithLoadingDelay/WithLoadingDelay";
 import CardContent from "./CardContent/CardContent";
 import CardControls from "./CardControls/CardControls";
 import CardHeader from "./CardHeader/CardHeader";
+import CardContext from "../../CardContext";
 
 const Card = (props) => {
   const [cardState, setCardState] = useState({
@@ -11,6 +13,8 @@ const Card = (props) => {
     isEditMode: false,
     ...props.contentCardState,
   });
+
+  const cardContext = useContext(CardContext);
 
   cardState.isEditMode &&
     props.isReadOnlyMode &&
@@ -25,7 +29,7 @@ const Card = (props) => {
       return { ...prevState, ...data };
     });
 
-    props.appCardStateHandler({ ...data, ...cardState });
+    cardContext.changeCardsData({ ...data, ...cardState });
   }
 
   function cancelButtonHandler(data) {
@@ -43,7 +47,7 @@ const Card = (props) => {
       return { ...prevState, ...data };
     });
 
-    props.appCardStateHandler({ ...cardState, ...data });
+    cardContext.changeCardsData({ ...cardState, ...data });
   }
 
   function changeTextHandler(data) {
@@ -79,6 +83,12 @@ const Card = (props) => {
       />
     </Tile>
   );
+};
+
+Card.propTypes = {
+  contentCardState: PropTypes.object,
+  isReadOnlyMode: PropTypes.bool,
+  appCardStateHandler: PropTypes.func,
 };
 
 export default withLoadingDelay(Card);
