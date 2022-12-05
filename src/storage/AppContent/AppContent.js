@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Content } from "carbon-components-react";
-import CardList from "../CardList";
-import ActionBar from "../ActionBar";
-import CardContext from "../CardContext";
+import CardList from "../../components/CardList";
+import ActionBar from "../../components/ActionBar";
+import CardContext from "../../components/CardContext";
 
 const AppContent = (props) => {
   const [readOnlyModeState, setReadOnlyModeState] = useState(false);

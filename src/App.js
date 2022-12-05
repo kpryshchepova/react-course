@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import AppHeader from "./components/AppHeader";
-import AppContent from "./components/AppContent";
+import AppContent from "./storage/AppContent";
 import ReactDOM from "react-dom";
 import modalConfig from "./utils/modal.config.json";
 
