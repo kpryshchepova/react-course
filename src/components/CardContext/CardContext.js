@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useUID } from "react-uid";
+import React, { useEffect, useState } from "react";
+import CardsService from "../../services/CardsService";
 
 const CardContext = React.createContext({
   cards: [],
@@ -9,58 +9,17 @@ const CardContext = React.createContext({
 });
 
 export const CardContextProvider = (props) => {
-  const [cardsState, setCardsState] = useState([
-    {
-      id: useUID(),
-      header: "Header1",
-      content: "Content1",
-    },
-    {
-      id: useUID(),
-      header: "Header2",
-      content: "Content2",
-    },
-    {
-      id: useUID(),
-      header: "Header3",
-      content: "Content3",
-    },
-    {
-      id: useUID(),
-      header: "Header4",
-      content: "Content4",
-    },
-    {
-      id: useUID(),
-      header: "Header5",
-      content: "Content5",
-    },
-    {
-      id: useUID(),
-      header: "Header6",
-      content: "Content6",
-    },
-    {
-      id: useUID(),
-      header: "Header7",
-      content: "Content7",
-    },
-    {
-      id: useUID(),
-      header: "Header8",
-      content: "Content8",
-    },
-    {
-      id: useUID(),
-      header: "Header9",
-      content: "Content9",
-    },
-    {
-      id: useUID(),
-      header: "Header10",
-      content: "Content10",
-    },
-  ]);
+  const [cardsState, setCardsState] = useState([]);
+
+  useEffect(() => {
+    getAndSetCards();
+  }, []);
+
+  async function getAndSetCards() {
+    const cardsList = await CardsService.getCardsList();
+
+    setCardsState(cardsList);
+  }
 
   function deleteCardsHandler() {
     setCardsState((prevState) => {
